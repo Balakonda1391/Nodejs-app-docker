@@ -49,24 +49,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1n: [push]
-
-jobs:
-  build:
-    runs-on: runner1
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Deploy in Callxserver
-      run: |
-        sudo apt update
-        sudo touch r3.txt  
-      with:
-      registry: ghcr.io
-      username: ${{ github.balu1391 }}
-      password: ${{ secrets.GITHUB_TOKEN }}
+      env :
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the hello-docker Docker image
       run: |
-        docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
-        docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
-        docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+         echo 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 | docker login ghcr.io -u balu1391 --password-stdin
+         docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
+         docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
+         docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+
