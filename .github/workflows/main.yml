@@ -41,21 +41,40 @@
 #         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 #         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+# name: publish
+# on: [push]
+# jobs:
+#   publish-hello-docker-image:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Login to GitHub Container Registry
+#       env :
+#         username: ${{ github.actor }}
+#         password: ${{ secrets.GITHUB_TOKEN }}
+#     - name: Build the hello-docker Docker image
+#       run: |
+#          echo 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 | docker login ghcr.io -u balu1391 --password-stdin
+#          docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
+#          docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
+#          docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+
 name: publish
+
 on: [push]
+
 jobs:
   publish-hello-docker-image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Login to GitHub Container Registry
-      env :
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      env:
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the hello-docker Docker image
       run: |
-         echo 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 | docker login ghcr.io -u balu1391 --password-stdin
-         docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
-         docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
-         docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
-
+       echo $CR_PAT | docker login ghcr.io -u YourAccountOrGHOrgaNameHere --password-stdin
+       docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
+       docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
+       docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
