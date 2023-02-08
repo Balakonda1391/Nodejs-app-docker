@@ -72,7 +72,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Build the hello-docker Docker image
       run: |
-       docker login ghcr.io -u balu1391 -p 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
+       docker login ghcr.io -u balu1391 -p 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
        docker build . --tag ghcr.io/balu1391/hello-docker-gcr-demo:latest
        docker run ghcr.io/balu1391/hello-docker-gcr-demo:latest
        docker push ghcr.io/balu1391/hello-docker-gcr-demo:latest
