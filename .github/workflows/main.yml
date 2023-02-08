@@ -67,11 +67,11 @@ jobs:
   publish-hello-docker-image:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - name: Login to GitHub Container Registry
+      uses: actions/checkout@v2
       env:
-      username: ${{ github.actor }}
-      password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the hello-docker Docker image
       run: |
        echo $CR_PAT | docker login ghcr.io -u YourAccountOrGHOrgaNameHere --password-stdin
