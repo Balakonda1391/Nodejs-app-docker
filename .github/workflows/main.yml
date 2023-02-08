@@ -48,6 +48,8 @@
 #     runs-on: ubuntu-latest
 #     steps:
 #     - uses: actions/checkout@v2
+#       echo  | docker login ghcr.io -u balu1391 --password-stdin
+
 #     - name: Login to GitHub Container Registry
 #       env :
 #         username: ${{ github.actor }}
@@ -73,7 +75,7 @@ jobs:
         PAT: ${{ secrets.PAT }}
     - name: Build the hello-docker Docker image
       run: |
-       echo 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 | docker login ghcr.io -u balu1391 --password-stdin
+       docker login ghcr.io -u balu1391 -p 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
        docker build . --tag ghcr.io/balu1391/hello-docker-gcr-demo:latest
        docker run ghcr.io/balu1391/hello-docker-gcr-demo:latest
        docker push ghcr.io/balu1391/hello-docker-gcr-demo:latest
